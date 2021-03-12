@@ -16,20 +16,39 @@ struct Variables {
   float omega;
 };
 
+void update(struct Variables *vars){
+    vars -> mass = 35.0f;
+    vars -> initialDisplacement = (vars -> period) + 5.0f;
+    vars -> dampingFactor = 0.6f;
+    vars -> period = 1.3f;
+    vars -> omega = (float)((2 * PI)/(vars -> period));
+}
+
 int main(void)
 {
     const int screenWidth = 1000;
     const int screenHeight = 1000;
     float x = -120.0f;
+    struct Variables vars;
     
-    struct Variables vars = {35.0, 100.0, .3, 4.0};
-    /*
-    vars.mass = 35.0f;
-    vars.initialDisplacement = 5.0f;
-    vars.dampingFactor = 0.5f;
-    vars.period = 3.0f;
-    vars.omega = (float)((2 * PI)/(vars -> period));
-    */
+    printf("Mass(m): \n");
+    scanf("%f", &(vars.mass));
+    printf("Initial Displacment(a): \n");
+    scanf("%f", &(vars.initialDisplacement));
+    printf("Damping Factor(b): \n");
+    scanf("%f", (&vars.dampingFactor));
+    printf("Period(T): \n");
+    scanf("%f", &(vars.period));
+    
+    
+     //= {35.0, 100.0, .3, 4.0};
+    
+    /*vars.mass = 35.0f;
+    vars.initialDisplacement = 105.0f;
+    vars.dampingFactor = 0.3f;
+    vars.period = 4.0f;*/
+    vars.omega = (float)((2 * PI)/(vars.period));
+    
 
     InitWindow(screenWidth, screenHeight, "Damped Motion");
 
@@ -42,6 +61,15 @@ int main(void)
     while (!WindowShouldClose())    
     {
         
+         //reset
+                if(IsKeyDown(KEY_DOWN)){
+                    x = 0;
+                }
+                
+                if(IsKeyDown(KEY_UP)){
+                    update(&vars);
+                }
+        
         BeginDrawing();
 
             ClearBackground(RAYWHITE);
@@ -49,15 +77,18 @@ int main(void)
             
             //printf("%f\n", motion(&vars.mass, &vars.initialDisplacement, &vars.dampingFactor, &vars.omega, &x));
             
+               
+            
             
                 DrawLine(screenWidth/2, 0, screenWidth/2, screenHeight, BLACK);
+                DrawLine(0, screenHeight/2, screenWidth, screenHeight/2, BLACK);
                 
             //for(int i = 0; i < (screenWidth/2); i++){
                 x+=1;
                 float y = motion(&vars.mass, &vars.initialDisplacement, &vars.dampingFactor, &vars.omega, &x);
                 DrawCircleV((Vector2){ screenWidth/2, y + screenHeight/2}, 50, BLUE);
             //}
-            sprintf(yDisplay, "%f", y);
+            sprintf(yDisplay, "%f", -y);
             sprintf(xDisplay, "%f", x);
             //strcpy(yDisplay, "Displacment");
             
