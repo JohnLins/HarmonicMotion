@@ -16,13 +16,7 @@ struct Variables {
   float omega;
 };
 
-void update(struct Variables *vars){
-    vars -> mass = 35.0f;
-    vars -> initialDisplacement = (vars -> period) + 5.0f;
-    vars -> dampingFactor = 0.6f;
-    vars -> period = 1.3f;
-    vars -> omega = (float)((2 * PI)/(vars -> period));
-}
+void update(struct Variables *vars);
 
 int main(void)
 {
@@ -31,28 +25,31 @@ int main(void)
     float x = -120.0f;
     struct Variables vars;
     
-    printf("Mass(m): \n");
+    printf("\n Mass(m): ");
     scanf("%f", &(vars.mass));
-    printf("Initial Displacment(a): \n");
+    
+    printf("\n Initial Displacment(a): ");
     scanf("%f", &(vars.initialDisplacement));
-    printf("Damping Factor(b): \n");
+    
+    /*if(vars.initialDisplacement > screenHeight/2){
+        printf("Initial displacment is too large for the screen");
+        update(&vars);
+    }*/
+    
+    printf("\n Damping Factor(b): ");
     scanf("%f", (&vars.dampingFactor));
-    printf("Period(T): \n");
+    
+    printf("\n Period(T): ");
     scanf("%f", &(vars.period));
     
     
-     //= {35.0, 100.0, .3, 4.0};
-    
-    /*vars.mass = 35.0f;
-    vars.initialDisplacement = 105.0f;
-    vars.dampingFactor = 0.3f;
-    vars.period = 4.0f;*/
+     
     vars.omega = (float)((2 * PI)/(vars.period));
     
 
     InitWindow(screenWidth, screenHeight, "Damped Motion");
 
-    //Vector2 agentP = ;
+    
     
     char yDisplay[30];
     char xDisplay[30];
@@ -61,7 +58,7 @@ int main(void)
     while (!WindowShouldClose())    
     {
         
-         //reset
+                //reset
                 if(IsKeyDown(KEY_DOWN)){
                     x = 0;
                 }
@@ -75,9 +72,7 @@ int main(void)
             ClearBackground(RAYWHITE);
 
             
-            //printf("%f\n", motion(&vars.mass, &vars.initialDisplacement, &vars.dampingFactor, &vars.omega, &x));
-            
-               
+           
             
             
                 DrawLine(screenWidth/2, 0, screenWidth/2, screenHeight, BLACK);
@@ -90,10 +85,8 @@ int main(void)
             //}
             sprintf(yDisplay, "%f", -y);
             sprintf(xDisplay, "%f", x);
-            //strcpy(yDisplay, "Displacment");
             
             
-           // strcpy(xDisplay, "<- time");
             
             DrawText("Displacment(y): ", 10, 10, 20, BLACK);
             DrawText(yDisplay, 170, 10, 20, BLACK);
@@ -101,13 +94,31 @@ int main(void)
             DrawText("Time(x): ", 10, 50, 20, BLACK);
             DrawText(xDisplay, 100, 50, 20, BLACK);
             
+            
+            DrawText("Down key to reset time", 10, screenHeight - 30, 20, BLACK);
+            DrawText("Up key to update values", 10, screenHeight - 60, 20, BLACK);
+            
         EndDrawing();
     }
     CloseWindow();       
 
     return 0;
 }
-/*
-float motion(float *m, float *a, float *b, float *w, float *x){
-    return ((*a) * exp((-((*b) * (*x)) /(2 *(*m))))) * cosf(sqrt( pow(( (2*PI)/(*a) ), 2) - pow(((*b)/(4*(*m)) ), 2) ) * (*x));
-}*/
+
+void update(struct Variables *vars){
+ 
+    printf("\n Mass(m): ");
+    scanf("%f", &(vars -> mass));
+    
+    printf("\n Initial Displacment(a): ");
+    scanf("%f", &(vars -> initialDisplacement));
+    
+    printf("\n Damping Factor(b): ");
+    scanf("%f", (&vars ->dampingFactor));
+    
+    printf("\n Period(T): ");
+    scanf("%f", &(vars -> period));
+    
+    vars -> omega = (float)((2 * PI)/(vars -> period));
+}
+
