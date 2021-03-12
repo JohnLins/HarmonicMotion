@@ -57,7 +57,18 @@ int main(void)
                 float y = motion(&vars.mass, &vars.initialDisplacement, &vars.dampingFactor, &vars.omega, &x);
                 DrawCircleV((Vector2){ screenWidth/2, y + screenHeight/2}, 50, BLUE);
             //}
+            sprintf(yDisplay, "%f", y);
+            sprintf(xDisplay, "%f", x);
+            //strcpy(yDisplay, "Displacment");
             
+            
+           // strcpy(xDisplay, "<- time");
+            
+            DrawText("Displacment(y): ", 10, 10, 20, BLACK);
+            DrawText(yDisplay, 170, 10, 20, BLACK);
+            
+            DrawText("Time(x): ", 10, 50, 20, BLACK);
+            DrawText(xDisplay, 100, 50, 20, BLACK);
             
         EndDrawing();
     }
