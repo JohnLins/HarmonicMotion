@@ -45,10 +45,13 @@ int main(void)
 
     InitWindow(screenWidth, screenHeight, "Damped Motion");
 
-    
+    float y;
+    float *yPtr = &y;
     
     char yDisplay[30];
     char xDisplay[30];
+    
+    
 
     SetTargetFPS(60);  
     while (!WindowShouldClose())    
@@ -75,9 +78,16 @@ int main(void)
                 DrawLine(0, screenHeight/2, screenWidth, screenHeight/2, BLACK);
                 
           
-                x+=1;
-                float y = motion(&vars.mass, &vars.initialDisplacement, &vars.dampingFactor, &vars.omega, &x);
+                x++;
+                *yPtr = motion(&vars.mass, &vars.initialDisplacement, &vars.dampingFactor, &vars.omega, &x);
                 DrawCircleV((Vector2){ screenWidth/2, y + screenHeight/2}, 50, BLUE);
+                
+           
+           
+                for(int i = 0; i < 600; i++){
+                    float x_new = x - i;
+                    DrawCircleLines(screenWidth/2 - i, motion(&vars.mass, &vars.initialDisplacement, &vars.dampingFactor, &vars.omega, &x_new) + screenHeight/2, 5, BLUE);
+                }
             
             sprintf(yDisplay, "%f", -y);
             sprintf(xDisplay, "%f", x);
