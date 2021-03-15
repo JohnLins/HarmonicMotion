@@ -31,10 +31,6 @@ int main(void)
     printf("\n Initial Displacment(a): ");
     scanf("%f", &(vars.initialDisplacement));
     
-    /*if(vars.initialDisplacement > screenHeight/2){
-        printf("Initial displacment is too large for the screen");
-        update(&vars);
-    }*/
     
     printf("\n Damping Factor(b): ");
     scanf("%f", (&vars.dampingFactor));
@@ -72,17 +68,17 @@ int main(void)
             ClearBackground(RAYWHITE);
 
             
-           
+            
             
             
                 DrawLine(screenWidth/2, 0, screenWidth/2, screenHeight, BLACK);
                 DrawLine(0, screenHeight/2, screenWidth, screenHeight/2, BLACK);
                 
-            //for(int i = 0; i < (screenWidth/2); i++){
+          
                 x+=1;
                 float y = motion(&vars.mass, &vars.initialDisplacement, &vars.dampingFactor, &vars.omega, &x);
                 DrawCircleV((Vector2){ screenWidth/2, y + screenHeight/2}, 50, BLUE);
-            //}
+            
             sprintf(yDisplay, "%f", -y);
             sprintf(xDisplay, "%f", x);
             
@@ -113,7 +109,7 @@ void update(struct Variables *vars){
     printf("\n Initial Displacment(a): ");
     scanf("%f", &(vars -> initialDisplacement));
     
-    printf("\n Damping Factor(b): ");
+    printf("\n Damping Factor(b, between 0 and 1): ");
     scanf("%f", (&vars ->dampingFactor));
     
     printf("\n Period(T): ");
