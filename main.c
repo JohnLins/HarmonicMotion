@@ -5,7 +5,8 @@
 
 
 float motion(float *m, float *a, float *b, float *w, float *x){
-    return (*a)*exp((-1*(*b)*(*x))/(2*(*m)))   *  cosf(sqrt( pow((2*PI)/(*a), 2) - pow((*b)/(4*(*m)), 2) ) * (*x));
+    //return (*a)*exp((-1*(*b)*(*x))/(2*(*m)))   *  cosf(sqrt( pow((2*PI)/(*a), 2) - pow((*b)/(4*(*m)), 2) ) * (*x));
+    return (*a) * exp((-(*b)*(*x))/(2*(*m)))   *  cosf(sqrt(  pow((*w), 2) - pow((*b) / (4 * (*m)), 2)  ) * (*x));
 }
 
 struct Variables {
