@@ -85,7 +85,7 @@ int main(void)
                 
            
            
-                for(int i = 0; i < 600; i++){
+                for(int i = 0; i < screenWidth/2; i++){
                     float x_new = x - i;
                     DrawCircleLines(screenWidth/2 - i, motion(&vars.mass, &vars.initialDisplacement, &vars.dampingFactor, &vars.omega, &x_new) + screenHeight/2, 5, BLUE);
                 }
